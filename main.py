@@ -1,9 +1,7 @@
 import pandas as pd
-
-from docToPdf import DocToPDF
 import os
+from docToPdf import DocToPDF
 from extractor import Extractor
-
 
 if __name__ == "__main__":
 
@@ -13,27 +11,25 @@ if __name__ == "__main__":
                    if fileName.lower().endswith(".docx")
                    or fileName.lower().endswith(".doc")]
 
-    #CREATE OUTPUT DATAFRAME
+    # CREATE OUTPUT DATAFRAME
     outputDf = pd.DataFrame()
 
     orderList = []
 
-
     for document in listOfFiles:
-
+        print(document)
         file = DocToPDF("toRead/" + document).convertToPDF()
 
-    # CREATE EXTRACTOR INSTANCE
+        # CREATE EXTRACTOR INSTANCE
         documentData = Extractor(file)
 
-    # EXTRACT ORDER NUMBER
+        # EXTRACT ORDER NUMBER
 
         orderNumber = documentData.extractOrderNumber()
 
-    # EXTRACT TABLES AS DATAFRAMES
+        # EXTRACT TABLES AS DATAFRAMES
 
         tables = documentData.extractTables()
-
         # print(tables[0]. )
         for table in tables:
             for i in range(len(table)):
@@ -41,31 +37,31 @@ if __name__ == "__main__":
                     continue
 
                 line = {
-                        "l.p": i,
-                        "kod towaru": table.iloc[i][1].strip(),
-                        "detal": table.iloc[i][2].strip(),
-                        "zdysponowano": table.iloc[i][3].strip(),
-                        "j.m.": "Szt.",
-                        "wydano": table.iloc[i][3].strip(),
-                        "cena": table.iloc[i][5].strip(),
-                        "wartość": table.iloc[i][6].strip(),
-                        "nr zlecenia": orderNumber,
-                        "uwagi": "",
-                    }
+                    "l.p": i,
+                    "kod towaru": table.iloc[i][1].strip(),
+                    "detal": table.iloc[i][2].strip(),
+                    "zdysponowano": table.iloc[i][3].strip(),
+                    "j.m.": "Szt.",
+                    "wydano": table.iloc[i][3].strip(),
+                    "cena": table.iloc[i][5].strip(),
+                    "wartość": table.iloc[i][6].strip(),
+                    "nr zlecenia": orderNumber,
+                    "uwagi": "",
+                }
                 orderList.append(line)
 
                 print(f"kod towaru: {table.iloc[i][1].strip()} "
-                          f"detal: {table.iloc[i][2].strip()} "
-                          f"zdysponowano: {table.iloc[i][3].strip()} "
-                          f"j.m.: Szt."
-                          f"wydano: {table.iloc[i][3].strip()} "
-                          f"cena: {table.iloc[i][5].strip()} "
-                          f"wartość: {table.iloc[i][6].strip()}"
-                          f"nr zlecenia: {orderNumber}")
+                      f"detal: {table.iloc[i][2].strip()} "
+                      f"zdysponowano: {table.iloc[i][3].strip()} "
+                      f"j.m.: Szt."
+                      f"wydano: {table.iloc[i][3].strip()} "
+                      f"cena: {table.iloc[i][5].strip()} "
+                      f"wartość: {table.iloc[i][6].strip()}"
+                      f"nr zlecenia: {orderNumber}")
 
             emptyLine = {
                 "l.p": "",
-                "kod towaru":"",
+                "kod towaru": "",
                 "detal": "",
                 "zdysponowano": "",
                 "j.m.": "",
@@ -92,4 +88,4 @@ if __name__ == "__main__":
     orderList.append(lastLine)
     outputDf = pd.DataFrame(orderList)
     outputDf.to_excel("output.xlsx",
-                       sheet_name='Sheet_name_1')
+                      sheet_name='Sheet_name_1')
