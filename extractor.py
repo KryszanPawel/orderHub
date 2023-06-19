@@ -46,11 +46,23 @@ class Extractor:
                     table = table[:index]
                     break
             # create list of data and remove empty strings and whitespaces
-            table = [item.strip() for item in table if item.strip() != ""]
+            # handle exception when misreading 2 lines not one
+            tempTable = []
+            for item in table:
+                tempItem = item.strip()
+                if tempItem.startswith("RAZ"):
+                    break
+                if tempItem != "":
+                    tempTable.append(tempItem)
+            table = tempTable
+
             table = [item.split(" ") for item in table]
             table = flatten(table)
+            # handling total price mistake (whitespace in total price)
+            if len(table[-1]) == 1:
+                table[-2] = ''.join([table[-2], table[-1]])
+                table.pop()
             table = [item for item in table if item != ""]
-
             # when part name is divided by spaces it needs to be joined
             if len(table) != len(title):
                 tempTable = table[:2] + table[-4:]
@@ -61,6 +73,7 @@ class Extractor:
 
             # create dataframe from table data
             data = [title, table]
+
             tables = [pd.DataFrame(data)]
 
         return tables

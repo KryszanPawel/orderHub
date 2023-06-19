@@ -1,5 +1,7 @@
 import pandas as pd
 import os
+
+import extractor
 from docToPdf import DocToPDF
 from extractor import Extractor
 
@@ -13,7 +15,6 @@ if __name__ == "__main__":
 
     # CREATE OUTPUT DATAFRAME
     outputDf = pd.DataFrame()
-
     orderList = []
 
     for document in listOfFiles:
