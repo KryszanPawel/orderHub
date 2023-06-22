@@ -17,12 +17,12 @@ class Extractor:
     def __init__(self, file):
         self.file = file
 
-    def extractOrderNumber(self):
+    def extractOrderNumber(self) -> str:
         reader = PdfReader(self.file)
         page = reader.pages[0]
         return page.extract_text().strip().split("\n")[0].split()[2]
 
-    def extractTables(self):
+    def extractTables(self) -> list:
         tables = [table.df for table in camelot.read_pdf(self.file)]
 
         # table extraction when 1 record

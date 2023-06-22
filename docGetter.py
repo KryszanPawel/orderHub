@@ -2,7 +2,7 @@ import os
 import sys
 
 
-def getFiles():
+def getFiles() -> list:
     """Returns list of files from toRead directory."""
     # Check if there are doc / docx files are in directory
     readDir = "toRead"

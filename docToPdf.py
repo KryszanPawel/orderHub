@@ -11,7 +11,7 @@ class DocToPDF:
     def __init__(self, docFile):
         self.docFile = docFile
 
-    def convertToPDF(self):
+    def convertToPDF(self) -> str:
         outputFile = "output.pdf"
         if self.docFile.lower().endswith(".doc"):
             try:
