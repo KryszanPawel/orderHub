@@ -1,5 +1,4 @@
 import os
-from time import sleep
 from datetime import datetime
 
 LOG_DIR: str = "log"
@@ -57,7 +56,6 @@ class LogMaintainer:
         print(f"|  Log -> {self.newEntry['amountOfFiles']} files in %.2fs  |"
               % float(self.timeString))
         print("-" * 29)
-        sleep(2)
 
     def addEntryToFile(self) -> None:
         """Writes new entry to log file if it exists,

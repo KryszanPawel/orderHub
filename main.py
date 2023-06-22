@@ -10,6 +10,7 @@ if __name__ == "__main__":
 
     # GET LIST OF ORDERS
     listOfFiles = docGetter.getFiles()
+    listOfFiles = listOfFiles[:3]
 
     # CREATE LIT TO BE CONVERTED TO DATAFRAME
     orderList = []
