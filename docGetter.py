@@ -12,13 +12,16 @@ def getFiles() -> list:
                    or fileName.lower().endswith(".doc")]
     # Extract files from order directories
     if len(listOfFiles) == 0:
-        listOfDirs = []
         for file in os.listdir(readDir):
             d = os.path.join(readDir, file)
             if os.path.isdir(d):
                 for fileName in os.listdir(d):
-                    if fileName.lower().endswith(".docx") or fileName.lower().endswith(".doc"):
-                        listOfFiles.append((d + "\\" + fileName).replace(readDir, ""))
+                    if fileName.lower().endswith(".docx") or \
+                            fileName.lower().endswith(".doc"):
+
+                        listOfFiles.append(
+                            (d + "\\" + fileName).replace(readDir, "")
+                        )
 
     return listOfFiles
 

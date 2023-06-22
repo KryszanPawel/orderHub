@@ -12,7 +12,10 @@ class DocToPDF:
         self.docFile = docFile
 
     def convertToPDF(self) -> str:
+        """Convert file to pdf. returns name of file"""
+
         outputFile = "output.pdf"
+        # WHEN FILE IS .DOC
         if self.docFile.lower().endswith(".doc"):
             try:
                 wdFormatPDF = 17
@@ -26,8 +29,10 @@ class DocToPDF:
             except _ctypes.COMError:
                 print("docToPdf: Please close all MS-word processes")
                 sys.exit()
+        # WHEN FILE IS .DOCX
         elif self.docFile.lower().endswith(".docx"):
             docx2pdf.convert(self.docFile, "output.pdf")
+        # WHEN FILE IS NOT .DOC OR .DOCX
         else:
             print("Unsupported file format")
             sys.exit(404)

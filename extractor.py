@@ -3,7 +3,8 @@ import camelot
 import pandas as pd
 
 
-def flatten(table):
+def flatten(table: list) -> list:
+    """Flattens list"""
     flat_list = []
     for sublist in table:
         for item in sublist:
@@ -14,20 +15,25 @@ def flatten(table):
 class Extractor:
     """Extracts information form PDF file"""
 
-    def __init__(self, file):
+    def __init__(self, file: str):
         self.file = file
 
     def extractOrderNumber(self) -> str:
+        """Returns order number from order pdf"""
+
         reader = PdfReader(self.file)
         page = reader.pages[0]
         return page.extract_text().strip().split("\n")[0].split()[2]
 
     def extractTables(self) -> list:
+        """Returns list of all tables[DataFrames] from order pdf"""
+
         tables = [table.df for table in camelot.read_pdf(self.file)]
 
         # table extraction when 1 record
         if len(tables) == 0:
-            title = ["Lp", "Nr artykułu", "Opis", "Ilość", "Jm", "Cena netto", "Wartość netto"]
+            title = ["Lp", "Nr artykułu", "Opis", "Ilość", "Jm",
+                     "Cena netto", "Wartość netto"]
             reader = PdfReader(self.file)
             page = reader.pages[0]
             table = page.extract_text().strip().split("\n")

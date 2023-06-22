@@ -4,21 +4,22 @@ import docGetter
 import os
 from docToPdf import DocToPDF
 from extractor import Extractor
+from logMaintainer import LogMaintainer
 
 if __name__ == "__main__":
 
     # GET LIST OF ORDERS
     listOfFiles = docGetter.getFiles()
 
-    # CREATE OUTPUT DATAFRAME
-    outputDf = pd.DataFrame()
+    # CREATE LIT TO BE CONVERTED TO DATAFRAME
     orderList = []
-    n = 0
+
+    fileCounter = 0
     start = time()
 
     for document in listOfFiles:
-        n += 1
-        print(f"{n}. {document}")
+        fileCounter += 1
+        print(f"{fileCounter}. {document}")
         file = DocToPDF("./toRead/" + document).convertToPDF()
 
         # CREATE EXTRACTOR INSTANCE
@@ -87,12 +88,13 @@ if __name__ == "__main__":
     }
     os.remove("output.pdf")
     orderList.append(lastLine)
+
+    # CREATE DATAFRAME AND CONVERT LIST
     outputDf = pd.DataFrame(orderList)
     outputDf.to_excel("output.xlsx",
                       sheet_name='Sheet_name_1')
 
     end = time()
-    print("\n")
-    print("-" * 29)
-    print(f"|  Log -> {n} files in %.2fs  |" %(end-start))
-    print("-" * 29)
+
+    # ADD LOG ENTRY
+    LogMaintainer(start, end, fileCounter).createNewEntry()
