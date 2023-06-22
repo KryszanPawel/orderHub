@@ -16,11 +16,12 @@ if __name__ == "__main__":
     orderList = []
 
     fileCounter = 0
+    finalCounter = len(listOfFiles)
     start = time()
 
     for document in listOfFiles:
         fileCounter += 1
-        print(f"{fileCounter}. {document}")
+        print(f"<{fileCounter}/{finalCounter}> {document}")
         file = DocToPDF("./toRead/" + document).convertToPDF()
 
         # CREATE EXTRACTOR INSTANCE

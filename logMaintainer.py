@@ -5,9 +5,9 @@ LOG_DIR: str = "log"
 
 # INITIAL LOG HEADER
 INFO_STRING: str = \
-    "----------------------\n" + \
+    " -------------------- \n" + \
     "| Document read log: |\n" + \
-    "----------------------\n"
+    " -------------------- \n"
 
 
 def createLogDir() -> None:
@@ -30,8 +30,10 @@ def extractLogData() -> tuple:
         return logNo, fileOutput
 
 
-def writeToLogFile(fileOutput: list) -> None:
+def writeToLogFile(fileOutput: list[str]) -> None:
     """Override data in log file"""
+    # DELETE LAST EMPTY LINE
+    fileOutput[-1] = fileOutput[-1].replace("\n", "")
     with open(f"{LOG_DIR}\\log.txt", "w") as logFile:
         logFile.writelines(fileOutput)
 
@@ -52,10 +54,10 @@ class LogMaintainer:
         self.addEntryToFile()
         # PRINT A RESULT
         print("\n")
-        print("-" * 29)
+        print(" " + "-" * 28 + " ")
         print(f"|  Log -> {self.newEntry['amountOfFiles']} files in %.2fs  |"
               % float(self.timeString))
-        print("-" * 29)
+        print(" " + "-" * 28 + " ")
 
     def addEntryToFile(self) -> None:
         """Writes new entry to log file if it exists,
