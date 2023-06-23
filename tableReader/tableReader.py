@@ -28,7 +28,7 @@ if __name__ == "__main__":
         print(f"\n<{fileCounter}/{finalCounter}> {document}\n")
         sys.stdout.flush()
 
-        file = DocToPDF("./tableReader/toRead/" + document).convertToPDF()
+        file = DocToPDF("./toRead/" + document).convertToPDF()
 
         # CREATE EXTRACTOR INSTANCE
         documentData = Extractor(file)

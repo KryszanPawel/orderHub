@@ -7,6 +7,7 @@ do
     echo Choose action:
     echo "(R)ead tables and extract to .xlsx"
     echo "(O)pen table reader log file"
+    echo "(S)ort files by order and thickness"
     echo "(Q)uit application"
     echo "----------------------------------"
     read answer
@@ -22,6 +23,10 @@ do
         o | O)
             cat tableReader/log/log.txt
             echo "";;
+        s | S)
+            echo "Sorting"
+            ./venv/Scripts/python.exe ./fileSorter/fileSorter.py
+            echo "Sorted!" ;;
         *)
             echo "CHOOSE AGAIN"
             sleep 1
