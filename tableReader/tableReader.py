@@ -2,7 +2,11 @@ import pandas as pd
 from time import time
 import docGetter
 import os
-from docToPdf import DocToPDF
+import platform
+if "win" in platform.system().lower():
+    from docToPdfWin import DocToPDF
+else:
+    from docToPdfLinux import DocToPDF
 from extractor import Extractor
 from logMaintainer import LogMaintainer
 import sys
@@ -14,9 +18,6 @@ if __name__ == "__main__":
 
     # CREATE LIT TO BE CONVERTED TO DATAFRAME
     orderList = []
-    # print(listOfFiles)
-    # sys.stdout.flush()
-    # sys.exit()
 
     fileCounter = 0
     finalCounter = len(listOfFiles)

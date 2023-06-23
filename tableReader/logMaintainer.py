@@ -2,7 +2,7 @@ import os
 from datetime import datetime
 
 WORKING_DIR: str = "./tableReader"
-LOG_PATH: str = f"{WORKING_DIR}\\log"
+LOG_PATH: str = f"{WORKING_DIR}/log"
 
 # INITIAL LOG HEADER
 INFO_STRING: str = \
@@ -15,13 +15,13 @@ def createLogDir() -> None:
     """Create log dir if one does not exist"""
     if "log" not in os.listdir(WORKING_DIR):
         os.mkdir(LOG_PATH)
-        with open(f"{LOG_PATH}\\log.txt", "w") as logFile:
+        with open(f"{LOG_PATH}/log.txt", "w") as logFile:
             logFile.writelines(INFO_STRING)
 
 
 def extractLogData() -> tuple:
     """Extract number of entries and content from log file"""
-    with open(f"{LOG_PATH}\\log.txt", "r") as logFile:
+    with open(f"{LOG_PATH}/log.txt", "r") as logFile:
         logFile.seek(0)
         fileOutput: list = logFile.readlines()
         logNo: int = len(
@@ -35,7 +35,7 @@ def writeToLogFile(fileOutput: list[str]) -> None:
     """Override data in log file"""
     # DELETE LAST EMPTY LINE
     fileOutput[-1] = fileOutput[-1].replace("\n", "")
-    with open(f"{LOG_PATH}\\log.txt", "w") as logFile:
+    with open(f"{LOG_PATH}/log.txt", "w") as logFile:
         logFile.writelines(fileOutput)
 
 

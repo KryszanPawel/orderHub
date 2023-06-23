@@ -25,5 +25,3 @@ def getFiles() -> list:
     return listOfFiles
 
 
-class DocGetter:
-    pass

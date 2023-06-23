@@ -1,4 +1,16 @@
 #!/bin/bash
+unameOut="$(uname -s)"
+case ${unameOut:0:1} in
+    L | l)
+        source /venv/bin/activate;;
+    C | c)
+        source /venv/Scripts/activate.bat;;
+    *)
+        echo "System not recognized"
+        sleep 2
+        exit 404;;
+esac
+
 ((answer = "b"))
 while [ $answer != "q" ] && [ $answer != "Q" ]
 do
@@ -16,7 +28,7 @@ do
     case ${answer:0:1} in
         r | R)
             echo "Extraction Starts"
-            ./venv/Scripts/python.exe ./tableReader/tableReader.py 
+            python3 ./tableReader/tableReader.py 
             echo "Extraction Completed!" ;;
         q | Q)
             break;;
@@ -25,7 +37,7 @@ do
             echo "";;
         s | S)
             echo "Sorting"
-            ./venv/Scripts/python.exe ./fileSorter/fileSorter.py
+            python3 ./fileSorter/fileSorter.py
             echo "Sorted!" ;;
         *)
             echo "CHOOSE AGAIN"
