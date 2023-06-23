@@ -1,4 +1,21 @@
-<h1>Table reader</h1>
+<h1>OrderHub</h1>
+<hr>
+<p>Script has been designed to automate the order processing when multiple
+order files are received.
+<br>
+Key features of the script:
+
+1. Extraction data such as order number, part numbers, part names, quantity, and cost
+from multiple tables in multiple order files and creating collection document through tablerReader module.
+2. Creating checklist through checklist module to make collection easier.
+3. Dividing and sorting drawings by order, and raw material type that need to be used in production
+4. Creating and reading log of performed tasks
+<br>
+
+Implemented modules:
+<hr>
+<h2>Table reader</h2>
+
 <hr>
 <p>Script created to automate work with multiple order files.<br>
 Main reason to create this script was to automate the monotonous 

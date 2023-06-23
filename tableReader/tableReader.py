@@ -10,7 +10,7 @@ import sys
 if __name__ == "__main__":
 
     # GET LIST OF ORDERS
-    listOfFiles = docGetter.getFiles()[:5]
+    listOfFiles = docGetter.getFiles()
 
     # CREATE LIT TO BE CONVERTED TO DATAFRAME
     orderList = []
@@ -25,7 +25,7 @@ if __name__ == "__main__":
     for document in listOfFiles:
         fileCounter += 1
 
-        print(f"<{fileCounter}/{finalCounter}> {document}")
+        print(f"\n<{fileCounter}/{finalCounter}> {document}\n")
         sys.stdout.flush()
 
         file = DocToPDF("./tableReader/toRead/" + document).convertToPDF()
