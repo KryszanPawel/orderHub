@@ -14,7 +14,7 @@ class DocToPDF:
     def convertToPDF(self) -> str:
         """Convert file to pdf. returns name of file"""
 
-        outputFile = "output.pdf"
+        outputFile = "./tableReader/temp.pdf"
         # WHEN FILE IS .DOC
         if self.docFile.lower().endswith(".doc"):
             try:
@@ -31,7 +31,7 @@ class DocToPDF:
                 sys.exit()
         # WHEN FILE IS .DOCX
         elif self.docFile.lower().endswith(".docx"):
-            docx2pdf.convert(self.docFile, "output.pdf")
+            docx2pdf.convert(self.docFile, outputFile)
         # WHEN FILE IS NOT .DOC OR .DOCX
         else:
             print("Unsupported file format")

@@ -15,12 +15,12 @@ do
     case ${answer:0:1} in
         r | R)
             echo "Extraction Starts"
-            python3 tableReader.py 
+            ./venv/Scripts/python.exe ./tableReader/tableReader.py 
             echo "Extraction Completed!" ;;
         q | Q)
             break;;
         o | O)
-            cat log/log.txt
+            cat tableReader/log/log.txt
             echo "";;
         *)
             echo "CHOOSE AGAIN"
@@ -40,3 +40,4 @@ do
     esac
     
 done
+clear

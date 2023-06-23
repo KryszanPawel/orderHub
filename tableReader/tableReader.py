@@ -5,15 +5,18 @@ import os
 from docToPdf import DocToPDF
 from extractor import Extractor
 from logMaintainer import LogMaintainer
+import sys
 
 if __name__ == "__main__":
 
     # GET LIST OF ORDERS
-    listOfFiles = docGetter.getFiles()
-    listOfFiles = listOfFiles[:3]
+    listOfFiles = docGetter.getFiles()[:5]
 
     # CREATE LIT TO BE CONVERTED TO DATAFRAME
     orderList = []
+    # print(listOfFiles)
+    # sys.stdout.flush()
+    # sys.exit()
 
     fileCounter = 0
     finalCounter = len(listOfFiles)
@@ -21,8 +24,11 @@ if __name__ == "__main__":
 
     for document in listOfFiles:
         fileCounter += 1
+
         print(f"<{fileCounter}/{finalCounter}> {document}")
-        file = DocToPDF("./toRead/" + document).convertToPDF()
+        sys.stdout.flush()
+
+        file = DocToPDF("./tableReader/toRead/" + document).convertToPDF()
 
         # CREATE EXTRACTOR INSTANCE
         documentData = Extractor(file)
@@ -34,7 +40,6 @@ if __name__ == "__main__":
         # EXTRACT TABLES AS DATAFRAMES
 
         tables = documentData.extractTables()
-        # print(tables[0]. )
         for table in tables:
             for i in range(len(table)):
                 if i == 0:
@@ -62,6 +67,7 @@ if __name__ == "__main__":
                       f"cena: {table.iloc[i][5].strip()} "
                       f"wartość: {table.iloc[i][6].strip()} "
                       f"nr zlecenia: {orderNumber}")
+                sys.stdout.flush()
 
             emptyLine = {
                 "l.p": "",
@@ -88,12 +94,12 @@ if __name__ == "__main__":
         "wartość": "",
         "uwagi": "KONIEC",
     }
-    os.remove("output.pdf")
+    os.remove(file)
     orderList.append(lastLine)
 
     # CREATE DATAFRAME AND CONVERT LIST
     outputDf = pd.DataFrame(orderList)
-    outputDf.to_excel("output.xlsx",
+    outputDf.to_excel("./output.xlsx",
                       sheet_name='Sheet_name_1')
 
     end = time()

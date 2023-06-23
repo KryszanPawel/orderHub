@@ -4,7 +4,7 @@ import os
 def getFiles() -> list:
     """Returns list of files from toRead directory."""
     # Check if there are doc / docx files are in directory
-    readDir = "toRead"
+    readDir = "./tableReader/toRead"
     listOfFiles = os.listdir(readDir)
     listOfFiles = [fileName for fileName in listOfFiles
                    if fileName.lower().endswith(".docx")
