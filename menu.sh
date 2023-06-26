@@ -1,10 +1,11 @@
 #!/bin/bash
 unameOut="$(uname -s)"
+echo $unameOut
 case ${unameOut:0:1} in
     L | l)
         source /venv/bin/activate;;
-    C | c)
-        source /venv/Scripts/activate.bat;;
+    M | m)
+        source /venv/Scripts/activate;;
     *)
         echo "System not recognized"
         sleep 2
