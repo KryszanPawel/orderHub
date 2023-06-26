@@ -11,9 +11,8 @@ def getDirs() -> list[str]:
 
 
 def createCopyInSortedFiles() -> None:
-    output: dict = {}
+    """Create copy of order file sorted way"""
     for directory in getDirs():
-        output[directory] = {}
         pathToDirectory: str = TO_READ_PATH + "/" + directory
         # CHECK FOR ZIPS AND UNZIP IT
         for file in os.listdir(pathToDirectory):
@@ -27,10 +26,9 @@ def createCopyInSortedFiles() -> None:
             for thickness in range(15, 0, -1):
                 thickness = "#" + str(thickness)
                 if thickness in file:
-                    if thickness not in output[directory]:
-                        output[directory][thickness] = []
-                    output[directory][thickness].append(file)
                     createCopyOfSortedFile(directory, thickness, file)
+                    break
+    renameSortedDirectories()
 
 
 def createCopyOfSortedFile(directory, thickness, name):
@@ -42,6 +40,20 @@ def createCopyOfSortedFile(directory, thickness, name):
         os.mkdir("./sortedFiles/" + directory + "/" + thickness)
 
     src = os.getcwd() + "/toRead/" + directory + "/" + name
-    dst = os.getcwd() + "/sortedFiles/" + directory + "/" + thickness + "/" + name
+    dst = os.getcwd() + \
+          "/sortedFiles/" + directory + "/" + thickness + "/" + name
 
     shutil.copyfile(src, dst)
+
+
+def renameSortedDirectories():
+    for directory in os.listdir("./sortedFiles"):
+        newName = [directory]
+        for thickness in os.listdir("./sortedFiles/" + directory):
+            newName.append(thickness)
+
+        thicknessToSort = sorted([int(item.replace("#","")) for item in newName[1:]])
+        newName = newName[0:1] + ["#" + str(item) for item in thicknessToSort]
+
+        os.rename("./sortedFiles/" + directory,
+                  "./sortedFiles/" + "_".join(newName))
