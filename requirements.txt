@@ -4,6 +4,7 @@
 #
 #    pip-compile
 #
+xlrd==2.0.1
 tabula-py==2.7.0
 opencv-python
 ghostscript

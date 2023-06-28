@@ -9,7 +9,7 @@ case ${unameOut:0:1} in
     *)
         echo "System not recognized"
         sleep 2
-        exit 404;;
+        exit 5;;
 esac
 
 ((answer = "b"))
@@ -21,6 +21,7 @@ do
     echo "(R)ead tables and extract to .xlsx"
     echo "(O)pen table reader log file"
     echo "(S)ort files by order and thickness"
+	echo "(C)reate checklist(output.xlsx must be created)"
     echo "(Q)uit application"
     echo "----------------------------------"
     read answer
@@ -40,6 +41,10 @@ do
             echo "Sorting"
             python3 ./fileSorter/fileSorter.py
             echo "Sorted!" ;;
+		c | C)
+			echo "Processing output.xlsx"
+			python3 ./checklistCreator/checklistCreator.py
+			echo "Checklist created!" ;;
         *)
             echo "CHOOSE AGAIN"
             sleep 1
