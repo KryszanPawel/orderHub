@@ -1,6 +1,7 @@
 import sys
 import os
 import shutil
+import zipfile
 
 TO_READ_PATH = "./toRead"
 
@@ -12,13 +13,15 @@ def getDirs() -> list[str]:
 
 def createCopyInSortedFiles() -> None:
     """Create copy of order file sorted way"""
+    clearSortedFiles()
     for directory in getDirs():
         pathToDirectory: str = TO_READ_PATH + "/" + directory
         # CHECK FOR ZIPS AND UNZIP IT
         for file in os.listdir(pathToDirectory):
             if file.endswith(".zip") or file.endswith(".rar"):
-                print("zip found")
-                # TODO unzip it
+                print("Unzipping: " + pathToDirectory + "/" + file)
+                with zipfile.ZipFile(pathToDirectory + "/" + file) as zipFile:
+                    zipFile.extractall(pathToDirectory)
         # SORT BY THICKNESS
         for file in os.listdir(pathToDirectory):
             if file.endswith(".zip") or file.endswith(".rar"):
@@ -57,3 +60,8 @@ def renameSortedDirectories():
 
         os.rename("./sortedFiles/" + directory,
                   "./sortedFiles/" + "_".join(newName))
+
+def clearSortedFiles():
+    if "sortedFiles" in os.listdir():
+        shutil.rmtree("./sortedFiles", ignore_errors=True)
+
